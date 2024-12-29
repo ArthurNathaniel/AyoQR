@@ -1,0 +1,21 @@
+.category_all{
+    padding: 0 35%;
+    padding: 0 35%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.category_box{
+    background-color: #fff;
+    width: 100%;
+    padding: 0 5%;
+    padding-block: 50px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.category_title{
+    text-align: center;
+}

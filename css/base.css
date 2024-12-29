@@ -1,0 +1,184 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  font-family: "Montserrat", serif;
+}
+
+body {
+    font-family: "Montserrat", serif;
+
+  background-color: #fbfbfb;
+}
+
+.forms {
+  display: flex;
+  flex-direction: column;
+  margin-top: 25px;
+}
+
+.forms input {
+  height: 45px;
+  width: 100%;
+  border: 1.5px solid #ddd;
+  padding-left: 3%;
+}
+
+.forms button {
+  height: 45px;
+  width: 100%;
+  border: none;
+  background-color: #336aea;
+  color: #fff;
+}
+
+.forms input:focus {
+  outline: none;
+}
+.forms select {
+  height: 45px;
+  width: 100%;
+  border: 1.5px solid #ddd;
+  padding-left: 3%;
+}
+
+.forms select:focus {
+  outline: none;
+}
+.forms textarea {
+  height: 300px;
+  width: 100%;
+  border: 1.5px solid #ddd;
+  padding-left: 3%;
+  padding-top: 20px;
+}
+
+.forms textarea:focus {
+  outline: none;
+}
+.logo_name {
+  padding-block: 25px;
+  /* border: 2px dashed #336aea; */
+  text-align: center;
+  margin-top: 30px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.logo_name span {
+  color: #336aea;
+}
+.logout {
+  border: 2px solid red;
+  padding: 10px 30px;
+  border-radius: 50px;
+  background-color: red;
+  color: #fff;
+  position: absolute;
+  bottom: 30px;
+}
+
+.links i {
+  color: #336aea;
+  padding-right: 3%;
+}
+
+.links a.active {
+  color: #336aea;
+}
+
+.sidebar {
+  height: 100vh;
+  background-color: #fff;
+  width: 280px;
+  padding: 0 30px;
+  position: fixed;
+  left: 0;
+  top: 0;
+  transform: translateX(-100%);
+  transition: transform 0.8s ease-in-out;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+}
+
+.sidebar.hidden {
+  transform: translateX(0);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 35px;
+  overflow-y: auto; 
+  height: 50vh;
+  scrollbar-width: thin; 
+  scrollbar-color: #336aea #ecf0f1;
+}
+
+/* For Chrome, Edge, and Safari */
+.links::-webkit-scrollbar {
+  width: 8px;
+}
+
+.links::-webkit-scrollbar-track {
+  background: #ecf0f1; /* Light gray track */
+  border-radius: 10px; /* Rounded track */
+}
+
+.links::-webkit-scrollbar-thumb {
+  background-color: #336aea; /* Green thumb */
+  border-radius: 10px; /* Rounded thumb */
+  border: 2px solid #ecf0f1; /* Adds padding effect */
+}
+
+.links::-webkit-scrollbar-thumb:hover {
+  background-color: #021b55; /* Darker green on hover */
+}
+
+.links a {
+  padding-block: 10px;
+  color: #000;
+}
+
+.dashed {
+  border-top: 2px dashed #336aea;
+}
+
+.toggle_btn {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #336aea;
+  color: #ecf0f1;
+  height: 28px;
+  width: 28px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: left 0.7s ease-in-out;
+}
+.toggle_btn.collapsed {
+  left: 252px;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+table, th, td {
+    border: 1px solid #ccc;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #336aea;
+    color: white;
+}

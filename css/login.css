@@ -1,0 +1,55 @@
+.login_all{
+    padding: 0 35%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.login_box{
+    background-color: #fff;
+   width: 100%;
+   padding: 0 5%;
+   padding-block: 50px;
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.login_title{
+    text-align: center;
+}
+
+.login_title span{
+    color: #336AEA;
+}
+
+.login_title p{
+    font-size: 12px;
+}
+
+
+@media only screen and (max-width: 1110px) {
+    .login_all{
+        padding: 0 25%;
+    }
+}
+
+
+@media only screen and (max-width: 910px) {
+    .login_all{
+        padding: 0 20%;
+    }
+}
+
+@media only screen and (max-width: 710px) {
+    .login_all{
+        padding: 0 10%;
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .login_all{
+        padding: 0 5%;
+    }
+}

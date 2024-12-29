@@ -1,0 +1,54 @@
+.signup_all{
+    padding: 0 35%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.signup_box{
+    background-color: #fff;
+   width: 100%;
+   padding: 0 5%;
+   padding-block: 50px;
+   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.signup_title{
+    text-align: center;
+}
+
+.signup_title span{
+    color: #336AEA;
+}
+
+.signup_title p{
+    font-size: 12px;
+}
+
+
+@media only screen and (max-width: 1110px) {
+    .signup_all{
+        padding: 0 25%;
+    }
+}
+
+
+@media only screen and (max-width: 910px) {
+    .signup_all{
+        padding: 0 20%;
+    }
+}
+
+@media only screen and (max-width: 710px) {
+    .signup_all{
+        padding: 0 10%;
+    }
+}
+
+@media only screen and (max-width: 510px) {
+    .signup_all{
+        padding: 0 5%;
+    }
+}
