@@ -2,6 +2,12 @@
 // checkout.php
 require 'db.php';
 session_start();
+// Initialize cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+// Calculate cart count
+$cartCount = array_sum(array_column($_SESSION['cart'], 'quantity'));
 
 // Sample cart items for demonstration (only for testing, replace with dynamic cart data in production)
 if (!isset($_SESSION['cart'])) {
@@ -27,6 +33,7 @@ if (isset($_SESSION['cart'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
+    <?php include 'cdn.php'; ?>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/checkout.css">
 </head>

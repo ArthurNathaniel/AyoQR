@@ -1,7 +1,12 @@
 <?php
 require 'db.php'; // Include database connection
 session_start();
-
+// Initialize cart if it doesn't exist
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+// Calculate cart count
+$cartCount = array_sum(array_column($_SESSION['cart'], 'quantity'));
 // Check if order_id is provided in the query string
 if (!isset($_GET['order_id'])) {
     die("Invalid request. No order ID provided.");
@@ -35,6 +40,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Order Success</title>
+    <?php include 'cdn.php'; ?>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/order_success.css">
 </head>

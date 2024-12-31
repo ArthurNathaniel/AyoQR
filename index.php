@@ -92,7 +92,6 @@ $menuItems = $menuItems_query->fetchAll(PDO::FETCH_ASSOC);
                 <p>No food items found.</p>
             <?php endif; ?>
         </div>
-        <a href="checkout.php">Go to Checkout</a>
     </div>
 
     <script src="./js/swiper.js"></script>
