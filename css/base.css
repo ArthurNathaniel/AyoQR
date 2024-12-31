@@ -182,3 +182,94 @@ th {
     background-color: #336aea;
     color: white;
 }
+
+.swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    font-size: 18px;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .navbar_all{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 3%;
+  }
+
+  .logo{
+    height: 100px;
+    width: 150px;
+    background-image: url(../images/logo_white.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .nav_links{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav_links a{
+    color: #000;
+  }
+
+  .cart-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 1em;
+    text-decoration: none;
+  
+  }
+  .cart-badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.9em;
+    margin-top: -30px;
+  }
+  
+  .contact_us{
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: center; 
+  }
+
+  .search-bar{
+    padding: 0 40%;
+    margin-block: 15px;
+  }
+
+  .search-bar input{
+    width: 100%;
+    height: 45px;
+    border-radius: 30px;
+    padding-left: 3%;
+  }
+
+  @media only screen and (max-width: 1110px) {
+    .search-bar{
+        padding: 0 10%;
+        margin-block: 15px;
+      }
+  }

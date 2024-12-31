@@ -1,0 +1,153 @@
+body{
+    background-color: #fff;
+}
+.checkout_all{
+    padding: 0 15%;
+    height: 80vh;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #000 #ecf0f1;
+    margin-top: 35px;
+
+}
+.cart-items{
+    border: 2px solid #ddd;
+    margin-top: 50px;
+    padding: 0 5%;
+    border-radius: 30px;
+    padding-bottom: 35px;
+}
+.cart_all{
+    border: 2px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    padding-block: 15px;
+    border-radius: 35px;
+}
+
+.clear_all button{
+   background-color: transparent;
+  padding: 15px 35px;
+   border: none;
+   font-weight: 600;
+   color: red;
+   font-size: 17px;
+}
+
+.cart-item{
+    border-bottom: 2px solid #ddd;
+    display: grid;
+    grid-template-columns: 1.5fr 3fr 0.5fr;
+    margin-top: 35px;
+    padding-bottom: 20px;
+}
+
+.food_image{
+    position: relative;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.food_image img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+  
+}
+
+.delete{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    color: red;
+}
+
+.food_name{
+    display: flex;
+    flex-direction: column;
+   justify-content: flex-start;
+ align-self: center;
+    text-align: left;
+    gap: 15px;
+
+}
+.price{
+    background-color: #000;
+    width: 50%;
+    color: #fff;
+    padding: 10px;
+    border-radius: 30px;
+    font-weight: 600;
+}
+
+.quantity{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.fa-plus{
+   border:2px solid green;
+   height: 2.5em;
+   width: 2.5em;
+    border-radius: 50%;
+    font-size: 15px;
+    color: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.fa-minus{
+    border:2px solid red;
+    height: 2.5em;
+    width: 2.5em;
+     border-radius: 50%;
+     font-size: 15px;
+     color: #000;
+     display: flex;
+     justify-content: center;
+     align-items: center;  
+}
+
+.total_all{
+    border: 2px solid #ddd;
+    padding: 0 5%;
+    padding-block: 35px;
+    margin-top: 35px;
+    border-radius: 30px;
+    align-self: flex-start;
+    height: auto;
+}
+
+.checkout_btn{
+    margin-top: 35px;
+}
+.checkout_btn button{
+    width: 100%;
+    height: 45px;
+    border: none;
+    background-color: red;
+    border-radius: 30px;
+    color: #fff;
+    font-weight: 800;
+}
+
+.line{
+    border-bottom: 2px solid #ddd;
+   margin-block: 15px;
+}
