@@ -110,7 +110,7 @@
     grid-template-columns: 1fr 1fr;
   }
   .card_price {
-    width: 85%;
+    width: 100%;
   }
 }
 
@@ -120,6 +120,6 @@
     grid-template-columns: 1fr;
   }
   .card_price {
-    width: 50%;
+    width: 100%;
   }
 }

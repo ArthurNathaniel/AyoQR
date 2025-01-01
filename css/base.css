@@ -257,6 +257,9 @@ th {
   align-items: center;
 }
 
+.contact_us a{
+  color: #000;
+}
 .search-bar {
   padding: 0 40%;
   margin-block: 15px;
@@ -290,9 +293,99 @@ text-align: center;
   border-bottom: 2px solid #ddd;
   margin-block: 15px;
 }
+
+#mobile-button{
+  display: none;
+}
+.mobile_links {
+  position: fixed;
+  top: 100px;
+  width: 50%;
+right: 0;
+  background-color: #f8f8f8;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
+  padding:0 3%;
+  padding-block: 40px;
+  transform: translateX(100%);
+  transition: transform 0.8s ease-in-out; /* Updated duration */
+  display: flex;
+  flex-direction: column;
+  z-index: 999; /* Stays below the search bar */
+}
+.cart{
+  display: none;
+}
 @media only screen and (max-width: 1110px) {
   .search-bar {
     padding: 0 10%;
     margin-block: 15px;
+  }
+ 
+}
+
+@media only screen and (max-width: 610px) {
+  #mobile-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+  }
+  .nav_links{
+    display: none;
+  }
+  .contact_us{
+    display: none;
+  }
+
+  .mobile_links {
+    position: fixed;
+    top: 100px;
+    width: 50%;
+  right: 0;
+    background-color: #f8f8f8;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    overflow-y: auto;
+    padding:0 3%;
+    padding-top: 15px;
+    padding-bottom: 40px;
+    transform: translateX(100%);
+    transition: transform 0.8s ease-in-out; /* Updated duration */
+    display: flex;
+    flex-direction: column;
+    z-index: 999; /* Stays below the search bar */
+}
+
+.mobile_links.active {
+    transform: translateX(0);
+}
+
+
+  .mobile_links a{
+    padding-top: 15px;
+    color: #000;
+  }
+  .search-bar{
+    position: fixed;
+    top: 250px; /* Adjust to match the header or desired position */
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    z-index: 1000; /* Ensures it stays above mobile_links */
+  }
+  .close-search-bar{
+    position: fixed;
+    text-align: right;
+    width: 100%;
+  }
+  .cart{
+    display: flex;
+  
+  }
+  .cart a{
+    color: #000;
   }
 }
