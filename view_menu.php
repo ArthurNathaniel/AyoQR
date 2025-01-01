@@ -12,13 +12,11 @@ if (!isset($_SESSION['admin_id'])) {
 if (isset($_GET['delete_id'])) {
     $deleteId = intval($_GET['delete_id']);
     $stmt = $conn->prepare("DELETE FROM menu WHERE id = ?");
-    $stmt->bind_param("i", $deleteId);
-
-    if ($stmt->execute()) {
+    if ($stmt->execute([$deleteId])) {
         header("Location: view_menu.php?message=Food item deleted successfully!");
         exit();
     } else {
-        $error = "Error deleting food item: " . $conn->error;
+        $error = "Error deleting food item: " . $conn->errorInfo()[2];
     }
 }
 
@@ -29,7 +27,9 @@ $query = "
     INNER JOIN categories ON menu.category_id = categories.id
     ORDER BY menu.name ASC
 ";
-$result = $conn->query($query);
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$menuItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,10 +52,10 @@ $result = $conn->query($query);
             padding: 5px 10px;
             cursor: pointer;
             background-color: transparent;
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
         }
     </style>
 </head>
@@ -82,8 +82,8 @@ $result = $conn->query($query);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if ($result->num_rows > 0): ?>
-                        <?php while ($row = $result->fetch_assoc()): ?>
+                    <?php if (!empty($menuItems)): ?>
+                        <?php foreach ($menuItems as $row): ?>
                             <tr>
                                 <td>
                                     <img src="<?php echo htmlspecialchars($row['image_path'], ENT_QUOTES); ?>" 
@@ -99,7 +99,7 @@ $result = $conn->query($query);
                                     </a>
                                 </td>
                             </tr>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
                             <td colspan="5">No food menu items found.</td>

@@ -89,7 +89,7 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'quantity'));
     <title>Checkout</title>
     <?php include 'cdn.php'; ?>
     <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/checkout.css">
+    <link rel="stylesheet" href="./css/cart.css">
 </head>
 
 <body>
@@ -157,17 +157,21 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'quantity'));
 
         </div>
         <div class="total_all">
-            <p>SubTotal GHS <?php echo number_format($total, 2); ?></strong></p>
+            <p>SubTotal GH₵ <?php echo number_format($total, 2); ?></strong></p>
             <div class="line"></div>
-            <p><strong>Total: GHS <?php echo number_format($total, 2); ?></strong></p>
+            <p><strong>Total: GH₵ <?php echo number_format($total, 2); ?></strong></p>
             <div class="checkout_btn">
-                <a href="checkout.php" class="btn">Proceed to checkout</a>
+                <a href="checkout.php" class="btn">
+                <button>Proceed to checkout</button>    
+                </a>
             </div>
 
             </form>
         </div>
 
-        <a href="index.php">Continue Shopping</a>
+      <div class="continue_shopping">
+      <a href="index.php"> <i class="fa-solid fa-arrow-left-long"></i> Continue Shopping</a>
+      </div>
     <?php endif; ?>
     </div>
 </body>

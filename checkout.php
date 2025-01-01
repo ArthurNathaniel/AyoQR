@@ -29,6 +29,7 @@ if (isset($_SESSION['cart'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -37,6 +38,7 @@ if (isset($_SESSION['cart'])) {
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/checkout.css">
 </head>
+
 <body>
     <?php include 'navbar.php'; ?>
 
@@ -46,25 +48,36 @@ if (isset($_SESSION['cart'])) {
             <form id="checkout-form">
                 <!-- Customer Information -->
                 <div class="customer-info">
-                    <label for="name">Full Name</label>
-                    <input type="text" id="name" name="name" required>
+                    <div class="forms">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
 
-                    <label for="phone">Phone Number</label>
-                    <input type="text" id="phone" name="phone" required>
+                    <div class="forms">
+                        <label for="phone">Phone Number</label>
+                        <input type="text" id="phone" name="phone" required>
+                    </div>
 
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
+                    <div class="forms">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
 
-                    <label for="pickup_delivery">Pick up / Delivery</label>
-                    <select name="pickup_delivery" id="pickup_delivery" required onchange="toggleAddressInput()">
-                        <option value="pickup">Pickup</option>
-                        <option value="delivery">Delivery</option>
-                    </select>
+                    <div class="forms">
+                        <label for="pickup_delivery">Pick up / Delivery</label>
+                        <select name="pickup_delivery" id="pickup_delivery" required onchange="toggleAddressInput()">
+                            <option value="" hidden>Select delivery mode</option>
+                            <option value="pickup">Pickup</option>
+                            <option value="delivery">Delivery</option>
+                        </select>
+                    </div>
 
-                    <!-- Address input shows when delivery is selected -->
-                    <div id="address-input" style="display:none;">
-                        <label for="address">Delivery Address</label>
-                        <input type="text" id="address" name="address" placeholder="Enter delivery address">
+                    <div class="forms">
+                        <!-- Address input shows when delivery is selected -->
+                        <div id="address-input" style="display:none;">
+                            <label for="address">Delivery Address</label>
+                            <input type="text" id="address" name="address" placeholder="Enter delivery address">
+                        </div>
                     </div>
                 </div>
 
@@ -74,25 +87,30 @@ if (isset($_SESSION['cart'])) {
                     <?php if (!empty($_SESSION['cart'])): ?>
                         <ul>
                             <?php foreach ($_SESSION['cart'] as $index => $item): ?>
-                                <li>
-                                    <strong><?php echo htmlspecialchars($item['name']); ?></strong>
-                                    - GHS <?php echo number_format($item['price'], 2); ?>
-                                    x <?php echo $item['quantity']; ?>
-                                </li>
+                                <div class="forms">
+                                    <li>
+                                        <strong><?php echo htmlspecialchars($item['name']); ?></strong>
+                                        - GHS <?php echo number_format($item['price'], 2); ?>
+                                        x <?php echo $item['quantity']; ?>
+                                    </li>
+                                </div>
                             <?php endforeach; ?>
                         </ul>
                     <?php else: ?>
                         <p>Your cart is empty.</p>
                     <?php endif; ?>
+                    <br>
                     <hr>
-                    <p><strong>Total: GHS <?php echo number_format($total, 2); ?></strong></p>
+
+                    <div class="forms">
+                        <p><strong>Total: GHS <?php echo number_format($total, 2); ?></strong></p>
+                    </div>
                 </div>
 
                 <!-- Paystack Payment -->
-                <div class="paystack">
+                <div class="paystack forms">
                     <button type="button" id="paystack-button" class="paystack-button">
-                        Pay with Paystack (GHS <?php echo number_format($total, 2); ?>)
-                    </button>
+                        Proceed to make payment </button>
                 </div>
             </form>
         </div>
@@ -131,25 +149,26 @@ if (isset($_SESSION['cart'])) {
             const formData = new FormData(document.getElementById('checkout-form'));
 
             fetch('process_checkout.php', {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Order placed successfully!');
-                    window.location.href = 'order_success.php?order_id=' + data.order_id;
-                } else {
-                    alert('Error: ' + data.message);
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to place order.');
-            });
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert('Order placed successfully!');
+                        window.location.href = 'order_success.php?order_id=' + data.order_id;
+                    } else {
+                        alert('Error: ' + data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Failed to place order.');
+                });
         }
     </script>
 
     <script src="https://js.paystack.co/v1/inline.js"></script>
 </body>
+
 </html>

@@ -17,47 +17,58 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $price = floatval($_POST['price']);
     $imagePath = "";
 
-    // Handle image upload
-    if (!empty($_FILES['food_image']['name'])) {
-        $uploadDir = 'uploads/';
-        $uploadFile = $uploadDir . basename($_FILES['food_image']['name']);
-        if (move_uploaded_file($_FILES['food_image']['tmp_name'], $uploadFile)) {
-            $imagePath = $uploadFile;
-        } else {
-            $message = "Error uploading the image.";
-        }
-    }
+    if (empty($foodName) || $categoryId <= 0 || $price <= 0) {
+        $message = "Please fill in all fields correctly.";
+    } else {
+        // Handle image upload
+        if (!empty($_FILES['food_image']['name'])) {
+            $uploadDir = 'uploads/';
+            $fileExt = strtolower(pathinfo($_FILES['food_image']['name'], PATHINFO_EXTENSION));
+            $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
 
-    if (!empty($foodName) && $categoryId > 0 && $price > 0 && !empty($imagePath)) {
-        // Check for duplicate food name in the same category
-        $stmt = $conn->prepare("SELECT COUNT(*) AS count FROM menu WHERE name = ? AND category_id = ?");
-        $stmt->bind_param("si", $foodName, $categoryId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $row = $result->fetch_assoc();
+            if (in_array($fileExt, $allowedExts)) {
+                $uniqueFileName = uniqid('food_', true) . '.' . $fileExt;
+                $uploadFile = $uploadDir . $uniqueFileName;
 
-        if ($row['count'] > 0) {
-            $message = "Error: Food item with the same name already exists in this category.";
-        } else {
-            // Insert new food item
-            $stmt = $conn->prepare("INSERT INTO menu (image_path, name, category_id, price) VALUES (?, ?, ?, ?)");
-            $stmt->bind_param("ssdi", $imagePath, $foodName, $categoryId, $price);
-
-            if ($stmt->execute()) {
-                $message = "Food item added successfully!";
+                if (move_uploaded_file($_FILES['food_image']['tmp_name'], $uploadFile)) {
+                    $imagePath = $uploadFile;
+                } else {
+                    $message = "Error uploading the image.";
+                }
             } else {
-                $message = "Error: " . $conn->error;
+                $message = "Invalid image file type.";
+            }
+        } else {
+            $message = "Food image is required.";
+        }
+
+        if (!empty($imagePath)) {
+            // Check for duplicate food name in the same category
+            $stmt = $conn->prepare("SELECT COUNT(*) AS count FROM menu WHERE name = :name AND category_id = :category_id");
+            $stmt->execute(['name' => $foodName, 'category_id' => $categoryId]);
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($row['count'] > 0) {
+                $message = "Error: Food item with the same name already exists in this category.";
+            } else {
+                // Insert new food item
+                $stmt = $conn->prepare("INSERT INTO menu (image_path, name, category_id, price) VALUES (:image_path, :name, :category_id, :price)");
+                $success = $stmt->execute([
+                    'image_path' => $imagePath,
+                    'name' => $foodName,
+                    'category_id' => $categoryId,
+                    'price' => $price,
+                ]);
+
+                $message = $success ? "Food item added successfully!" : "Database error: " . $conn->errorInfo()[2];
             }
         }
-
-        $stmt->close();
-    } else {
-        $message = "Please fill in all the fields.";
     }
 }
 
 // Fetch categories
-$categories = $conn->query("SELECT id, name FROM categories ORDER BY name ASC");
+$stmt = $conn->query("SELECT id, name FROM categories ORDER BY name ASC");
+$categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,17 +88,17 @@ $categories = $conn->query("SELECT id, name FROM categories ORDER BY name ASC");
     </script>
 </head>
 <body onload="showAlert('<?php echo htmlspecialchars($message, ENT_QUOTES); ?>')">
-<?php include 'sidebar.php'; ?>
+    <?php include 'sidebar.php'; ?>
     <div class="category_all">
         <div class="category_box">
-           <div class="category_title">
+            <div class="category_title">
                 <h2>Create Food Menu</h2>
             </div> 
 
             <form method="POST" enctype="multipart/form-data">
                 <div class="forms">
                     <label for="food_image">Food Image:</label>
-                    <input type="file" id="food_image" name="food_image" required>
+                    <input type="file" id="food_image" name="food_image" accept="image/*" required>
                 </div>
                 <div class="forms">
                     <label for="food_name">Food Name:</label>
@@ -97,11 +108,11 @@ $categories = $conn->query("SELECT id, name FROM categories ORDER BY name ASC");
                     <label for="category_id">Category:</label>
                     <select id="category_id" name="category_id" required>
                         <option value="" hidden>Select Category</option>
-                        <?php while ($row = $categories->fetch_assoc()): ?>
-                            <option value="<?php echo $row['id']; ?>">
-                                <?php echo htmlspecialchars($row['name'], ENT_QUOTES); ?>
+                        <?php foreach ($categories as $category): ?>
+                            <option value="<?php echo $category['id']; ?>">
+                                <?php echo htmlspecialchars($category['name'], ENT_QUOTES); ?>
                             </option>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     </select>
                 </div>
                 <div class="forms">

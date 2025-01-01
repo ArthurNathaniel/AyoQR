@@ -11,7 +11,7 @@ if (!isset($_SESSION['admin_id'])) {
 // Fetch all categories from the database
 $stmt = $conn->prepare("SELECT id, name FROM categories ORDER BY id DESC");
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,38 +23,37 @@ $result = $stmt->get_result();
     <?php include 'cdn.php'; ?>
     <link rel="stylesheet" href="./css/base.css">
     <link rel="stylesheet" href="./css/category.css">
-
 </head>
 
 <body>
     <?php include 'sidebar.php'; ?>
 
     <div class="category_all">
-    <div class="category_box">
-           <div class="category_title">
+        <div class="category_box">
+            <div class="category_title">
                 <h2>View Food Categories</h2>
-            </div> 
-        <?php if ($result->num_rows > 0): ?>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Category Name</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($row = $result->fetch_assoc()): ?>
+            </div>
+            <?php if (count($result) > 0): ?>
+                <table>
+                    <thead>
                         <tr>
-                            <td><?php echo $row['id']; ?></td>
-                            <td><?php echo htmlspecialchars($row['name'], ENT_QUOTES); ?></td>
+                            <th>ID</th>
+                            <th>Category Name</th>
                         </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        <?php else: ?>
-            <p>No categories found.</p>
-        <?php endif; ?>
-    </div>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($result as $row): ?>
+                            <tr>
+                                <td><?php echo $row['id']; ?></td>
+                                <td><?php echo htmlspecialchars($row['name'], ENT_QUOTES); ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            <?php else: ?>
+                <p>No categories found.</p>
+            <?php endif; ?>
+        </div>
     </div>
 </body>
 

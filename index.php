@@ -36,8 +36,20 @@ $cartCount = array_sum(array_column($_SESSION['cart'], 'quantity'));
 $categories_query = $conn->query("SELECT id, name FROM categories ORDER BY name ASC");
 $categories = $categories_query->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch menu items using PDO
-$menuItems_query = $conn->query("SELECT id, image_path, name, price FROM menu ORDER BY name ASC");
+// Fetch menu items based on selected category (if any)
+$category_id = isset($_GET['category_id']) ? intval($_GET['category_id']) : 0;
+
+$query = "SELECT id, image_path, name, price FROM menu";
+if ($category_id > 0) {
+    $query .= " WHERE category_id = :category_id";
+}
+$query .= " ORDER BY name ASC";
+$menuItems_query = $conn->prepare($query);
+
+if ($category_id > 0) {
+    $menuItems_query->bindParam(':category_id', $category_id, PDO::PARAM_INT);
+}
+$menuItems_query->execute();
 $menuItems = $menuItems_query->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
@@ -57,12 +69,32 @@ $menuItems = $menuItems_query->fetchAll(PDO::FETCH_ASSOC);
 <body>
     <?php include 'navbar.php'; ?>
     <div class="index_all">
-        <!-- Menu Content -->
-       <div class="title">
-       <h2>Our Menu</h2>
-       </div>
+        <div class="title">
+            <h2>Our Menu</h2>
+        </div>
+
+        <!-- Category Filter -->
+        <div class="category-filter">
+            <form method="GET" action="">
+               <div class="forms">
+               <label for="category">Select Category:</label>
+                <select name="category_id" id="category">
+                    <option value="0">All Categories</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?php echo $category['id']; ?>" <?php echo $category_id == $category['id'] ? 'selected' : ''; ?>>
+                            <?php echo htmlspecialchars($category['name'], ENT_QUOTES); ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+               </div>
+                <div class="forms">
+                <button type="submit">Filter</button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Menu Items -->
         <div class="menu-container" id="menu-container">
-           
             <?php if (!empty($menuItems)): ?>
                 <?php foreach ($menuItems as $item): ?>
                     <div class="card menu-item" data-name="<?php echo strtolower($item['name']); ?>">
@@ -73,7 +105,7 @@ $menuItems = $menuItems_query->fetchAll(PDO::FETCH_ASSOC);
                             <div class="card_details">
                                 <h3><?php echo htmlspecialchars($item['name'], ENT_QUOTES); ?></h3>
                                 <div class="card_price">
-                                    <p>GHS <?php echo number_format($item['price'], 2); ?></p>
+                                    <p>GH₵ <?php echo number_format($item['price'], 2); ?></p>
                                 </div>
                                 <form method="POST" action="">
                                     <input type="hidden" name="menu_id" value="<?php echo $item['id']; ?>">
@@ -93,7 +125,7 @@ $menuItems = $menuItems_query->fetchAll(PDO::FETCH_ASSOC);
             <?php endif; ?>
         </div>
     </div>
-
+    <!-- <?php include 'footer.php'; ?> -->
     <script src="./js/swiper.js"></script>
     <script>
         // Toggle search input visibility and swiper images

@@ -8,14 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];
 
     // Check if the email exists
-    $stmt = $conn->prepare("SELECT id, password FROM admins WHERE email = ?");
-    $stmt->bind_param("s", $email);
+    $stmt = $conn->prepare("SELECT id, password FROM admins WHERE email = :email");
+    $stmt->bindValue(':email', $email);
     $stmt->execute();
-    $stmt->store_result();
 
-    if ($stmt->num_rows > 0) {
-        $stmt->bind_result($adminId, $hashedPassword);
-        $stmt->fetch();
+    if ($stmt->rowCount() > 0) {
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+        $adminId = $admin['id'];
+        $hashedPassword = $admin['password'];
 
         // Verify the password
         if (password_verify($password, $hashedPassword)) {
@@ -33,8 +33,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $message = "Email not found. Please check your email or sign up.";
     }
-
-    $stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -63,23 +61,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
 
             <form method="POST">
-       
-            <div class="forms">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                </div>
-              <div class="forms">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
+                <div class="forms">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
                 <div class="forms">
-                <button type="submit">Login</button>
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
                 </div>
-           
+                <div class="forms">
+                    <button type="submit">Login</button>
+                </div>
             </form>
-
-            </div>
-            </div>
+        </div>
+    </div>
 </body>
 
 </html>

@@ -39,20 +39,19 @@ try {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Success</title>
-    <?php include 'cdn.php'; ?>
+    <title>Order Receipt</title>
     <link rel="stylesheet" href="./css/base.css">
-    <link rel="stylesheet" href="./css/order_success.css">
+    <link rel="stylesheet" href="./css/receipt.css">
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
-
-    <div class="order-success">
-        <h2>Thank You for Your Order!</h2>
-        <p>Your order has been placed successfully. Below are the details:</p>
+    <div class="receipt">
+        <div class="receipt-header">
+            <h2>Order Receipt</h2>
+            <p><strong>Thank you for your order!</strong></p>
+        </div>
 
         <!-- Order Details -->
-        <div class="order-details">
+        <div class="receipt-section">
             <h3>Order Information</h3>
             <p><strong>Order ID:</strong> <?php echo htmlspecialchars($order['id'], ENT_QUOTES); ?></p>
             <p><strong>Name:</strong> <?php echo htmlspecialchars($order['name'], ENT_QUOTES); ?></p>
@@ -62,25 +61,108 @@ try {
             <?php if ($order['pickup_delivery'] === 'delivery'): ?>
                 <p><strong>Delivery Address:</strong> <?php echo htmlspecialchars($order['address'], ENT_QUOTES); ?></p>
             <?php endif; ?>
-            <p><strong>Total Amount:</strong> GHS <?php echo number_format($order['total'], 2); ?></p>
         </div>
 
-        <!-- Order Items -->
-        <div class="order-items">
+        <!-- Order Items Table -->
+        <div class="receipt-section">
             <h3>Items Ordered</h3>
-            <ul>
-                <?php foreach ($items as $item): ?>
-                    <li>
-                        <strong><?php echo htmlspecialchars($item['item_name'], ENT_QUOTES); ?></strong>
-                        - GHS <?php echo number_format($item['item_price'], 2); ?>
-                        x <?php echo $item['quantity']; ?>
-                    </li>
-                <?php endforeach; ?>
-            </ul>
+            <table class="receipt-table">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($items as $item): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($item['item_name'], ENT_QUOTES); ?></td>
+                            <td>GHS <?php echo number_format($item['item_price'], 2); ?></td>
+                            <td><?php echo $item['quantity']; ?></td>
+                            <td>GHS <?php echo number_format($item['item_price'] * $item['quantity'], 2); ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
         </div>
-
-        <p>If you have any questions or concerns, please contact our support team.</p>
-        <a href="index.php" class="btn">Return to Homepage</a>
+        <p><strong>Total Amount:</strong> GHS <?php echo number_format($order['total'], 2); ?></p>
+        </div>
     </div>
 </body>
 </html>
+
+<style>
+    /* Style for the receipt */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+
+    .receipt {
+        width: 80mm;
+        margin: 0 auto;
+        padding: 1mm;
+        border: 1px solid #000;
+        font-size: 14px;
+    }
+
+    .receipt-header {
+        text-align: center;
+    }
+
+    .receipt-header h2 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .receipt-header p {
+        font-size: 16px;
+        margin: 5px 0;
+    }
+
+    .receipt-section {
+        margin: 10mm 0;
+    }
+
+    .receipt-section h3 {
+        margin-bottom: 5px;
+        font-size: 16px;
+        font-weight: bold;
+    }
+
+    .receipt-section p {
+        margin: 5px 0;
+    }
+
+    .receipt-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+    }
+
+    .receipt-table th, .receipt-table td {
+        padding: 5px;
+        text-align: left;
+        border-bottom: 1px solid #000;
+    }
+
+    .receipt-table th {
+        font-weight: bold;
+        background-color: #000;
+        color: #fff;
+    }
+
+    .receipt-footer {
+        text-align: center;
+        margin-top: 10mm;
+    }
+
+    .receipt-footer p {
+        font-size: 12px;
+        margin: 5px 0;
+    }
+</style>

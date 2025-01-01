@@ -14,21 +14,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoryName = trim($_POST['category_name']);
 
     if (!empty($categoryName)) {
-        // Insert the category into the database
-        $stmt = $conn->prepare("INSERT INTO categories (name) VALUES (?)");
-        $stmt->bind_param("s", $categoryName);
+        try {
+            // Insert the category into the database
+            $stmt = $conn->prepare("INSERT INTO categories (name) VALUES (:name)");
+            $stmt->bindValue(':name', $categoryName, PDO::PARAM_STR);
 
-        if ($stmt->execute()) {
-            $message = "Category added successfully!";
-        } else {
-            if ($conn->errno === 1062) {
-                $message = "Category already exists.";
+            if ($stmt->execute()) {
+                $message = "Category added successfully!";
             } else {
-                $message = "Error: " . $conn->error;
+                $errorInfo = $stmt->errorInfo();
+                if ($errorInfo[1] == 1062) { // Duplicate entry error code
+                    $message = "Category already exists.";
+                } else {
+                    $message = "Error: " . $errorInfo[2];
+                }
             }
+        } catch (PDOException $e) {
+            $message = "Database error: " . $e->getMessage();
         }
-
-        $stmt->close();
     } else {
         $message = "Category name cannot be empty.";
     }
@@ -57,9 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php include 'sidebar.php'; ?>
     <div class="category_all">
         <div class="category_box">
-           <div class="category_title">
+            <div class="category_title">
                 <h2>Create Food Category</h2>
-            </div> 
+            </div>
             <form method="POST">
                 <div class="forms">
                     <label for="category_name">Category Name:</label>

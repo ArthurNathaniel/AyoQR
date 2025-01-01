@@ -3,20 +3,25 @@
         <h1><span>Ayo</span>QR</h1>
     </div>
     <div class="links">
-        <div class="dashed"></div>
-        <a href=""> Dashboard </a>
-        <div class="dashed"></div>
-        <a href="create_category.php"> Categories </a>
-        <div class="dashed"></div>
-        <a href="view_categories.php"> View Categories </a>
-        <div class="dashed"></div>
-        <a href="create_menu.php"> Food Menu </a>
-        <div class="dashed"></div>
-        <a href="view_menu.php"> View Menu </a>
-        <div class="dashed"></div>
-        <a href="update_price.php"> Update Menu Price </a>
-        <div class="dashed"></div>
-    </div>
+    <div class="dashed"></div>
+    <a href="admin_dashboard.php"><i class="fas fa-tachometer-alt"></i> Dashboard </a>
+    <div class="dashed"></div>
+    <a href="create_category.php"><i class="fas fa-plus-circle"></i> Categories </a>
+    <div class="dashed"></div>
+    <a href="view_categories.php"><i class="fas fa-eye"></i> View Categories </a>
+    <div class="dashed"></div>
+    <a href="create_menu.php"><i class="fas fa-utensils"></i> Food Menu </a>
+    <div class="dashed"></div>
+    <a href="view_menu.php"><i class="fas fa-list"></i> View Menu </a>
+    <div class="dashed"></div>
+    <a href="update_price.php"><i class="fas fa-pencil-alt"></i> Update Menu Price </a>
+    <div class="dashed"></div>
+    <a href="admin_orders.php"><i class="fas fa-box-open"></i> Daily Orders </a>
+    <div class="dashed"></div>
+    <a href="yearly_report.php"><i class="fas fa-calendar-alt"></i> Yearly Orders </a>
+    <div class="dashed"></div>
+</div>
+
     <a href="logout.php">
         <div class="logout">
             <i class="fas fa-power-off"></i> Logout

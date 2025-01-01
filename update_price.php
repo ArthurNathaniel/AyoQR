@@ -10,7 +10,9 @@ if (!isset($_SESSION['admin_id'])) {
 
 // Fetch food items
 $query = "SELECT id, name, price FROM menu ORDER BY name ASC";
-$result = $conn->query($query);
+$stmt = $conn->prepare($query);
+$stmt->execute();
+$foodItems = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $food_id = $_POST['food_id'];
@@ -19,13 +21,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (is_numeric($new_price) && $new_price > 0) {
         // Update food price
         $stmt = $conn->prepare("UPDATE menu SET price = ? WHERE id = ?");
-        $stmt->bind_param("di", $new_price, $food_id);
-        if ($stmt->execute()) {
+        if ($stmt->execute([$new_price, $food_id])) {
             echo "<script>alert('Price updated successfully!'); window.location.href = 'update_price.php';</script>";
         } else {
             echo "<script>alert('Error updating price.');</script>";
         }
-        $stmt->close();
     } else {
         echo "<script>alert('Please enter a valid price.');</script>";
     }
@@ -53,11 +53,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="food_id">Select Food Item:</label>
             <select id="food_id" name="food_id" required>
                 <option value="" hidden>Select Food</option>
-                <?php while ($row = $result->fetch_assoc()): ?>
+                <?php foreach ($foodItems as $row): ?>
                     <option value="<?php echo $row['id']; ?>">
                         <?php echo htmlspecialchars($row['name'], ENT_QUOTES); ?> - GHS <?php echo number_format($row['price'], 2); ?>
                     </option>
-                <?php endwhile; ?>
+                <?php endforeach; ?>
             </select>
         </div>
 

@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
     navLinks.forEach(link => {
         if (currentURL.includes(link.getAttribute("href"))) {
             link.style.fontWeight = "bold"; // Make the active link bold
-            link.style.color = "red"; // Add a custom color for the active link
+            link.style.color = "#000"; // Add a custom color for the active link
         } else {
             link.style.fontWeight = "normal"; // Reset others
             link.style.color = ""; // Reset color
