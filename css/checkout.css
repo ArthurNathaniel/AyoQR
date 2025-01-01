@@ -150,9 +150,24 @@ body{
 .customer-info{
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap:30px;
+ gap:10px;
 }
 
 .forms li{
     list-style-type:none ;
+}
+
+
+@media only screen and (max-width: 1110px) {
+    .checkout_all{
+        padding: 0 5%;
+        margin-top: 35px;
+        margin-bottom: 150px;
+    
+    } 
+    .customer-info{
+        display: grid;
+        grid-template-columns: 1fr;
+
+    }
 }

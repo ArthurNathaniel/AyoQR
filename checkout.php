@@ -83,7 +83,9 @@ if (isset($_SESSION['cart'])) {
 
                 <!-- Cart Summary -->
                 <div class="cart-summary">
-                    <h4>Order Summary</h4>
+                 <div class="forms">
+                 <h3>Order Summary</h3>
+                 </div>
                     <?php if (!empty($_SESSION['cart'])): ?>
                         <ul>
                             <?php foreach ($_SESSION['cart'] as $index => $item): ?>

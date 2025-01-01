@@ -81,6 +81,8 @@ body{
  align-self: center;
     text-align: left;
     gap: 15px;
+    padding-left: 3%;
+    padding-right: 3%;
 
 }
 .price{
@@ -154,3 +156,33 @@ body{
 .continue_shopping a{
     color: #000;
 }
+
+.continue_shopping{
+    margin-bottom: 50px;
+}
+
+
+
+@media only screen and (max-width: 1110px) {
+    .checkout_all{
+        padding: 0 5%;
+        height: 80vh;
+      display: grid;
+      grid-template-columns: 1fr ;
+        gap: 30px;
+        overflow-y: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #000 #ecf0f1;
+        margin-top: 35px;
+    
+    }
+    .price{
+        background-color: #000;
+        width: 80%;
+        color: #fff;
+        padding: 10px;
+        border-radius: 30px;
+        font-weight: 600;
+    }
+   
+  }
