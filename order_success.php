@@ -45,15 +45,18 @@ try {
 </head>
 <body>
     <div class="receipt">
-        <div class="receipt-header">
+        <div class="logo"></div>
+        <!-- <div class="receipt-header">
             <h2>Order Receipt</h2>
             <p><strong>Thank you for your order!</strong></p>
-        </div>
+        </div> -->
 
         <!-- Order Details -->
         <div class="receipt-section">
+            <div class="title">
             <h3>Order Information</h3>
-            <p><strong>Order ID:</strong> <?php echo htmlspecialchars($order['id'], ENT_QUOTES); ?></p>
+            </div>
+           
             <p><strong>Name:</strong> <?php echo htmlspecialchars($order['name'], ENT_QUOTES); ?></p>
             <p><strong>Phone:</strong> <?php echo htmlspecialchars($order['phone'], ENT_QUOTES); ?></p>
             <p><strong>Email:</strong> <?php echo htmlspecialchars($order['email'], ENT_QUOTES); ?></p>
@@ -65,13 +68,13 @@ try {
 
         <!-- Order Items Table -->
         <div class="receipt-section">
-            <h3>Items Ordered</h3>
+           
             <table class="receipt-table">
                 <thead>
                     <tr>
                         <th>Item</th>
                         <th>Price</th>
-                        <th>Quantity</th>
+                        <th>Qty</th>
                         <th>Total</th>
                     </tr>
                 </thead>
@@ -79,90 +82,24 @@ try {
                     <?php foreach ($items as $item): ?>
                         <tr>
                             <td><?php echo htmlspecialchars($item['item_name'], ENT_QUOTES); ?></td>
-                            <td>GHS <?php echo number_format($item['item_price'], 2); ?></td>
+                            <td>GH₵ <?php echo number_format($item['item_price'], 2); ?></td>
                             <td><?php echo $item['quantity']; ?></td>
-                            <td>GHS <?php echo number_format($item['item_price'] * $item['quantity'], 2); ?></td>
+                            <td>GH₵ <?php echo number_format($item['item_price'] * $item['quantity'], 2); ?></td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
-        <p><strong>Total Amount:</strong> GHS <?php echo number_format($order['total'], 2); ?></p>
+       <div class="total">
+       Total: <strong> GH₵ <?php echo number_format($order['total'], 2); ?></strong>
+       </div>
+        <div class="order_id">
+        <h1>
+        <strong>Order ID:</strong> <?php echo htmlspecialchars($order['id'], ENT_QUOTES); ?>
+        </h1>
+        </div>
         </div>
     </div>
 </body>
 </html>
 
-<style>
-    /* Style for the receipt */
-    body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-    }
-
-    .receipt {
-        width: 80mm;
-        margin: 0 auto;
-        padding: 1mm;
-        border: 1px solid #000;
-        font-size: 14px;
-    }
-
-    .receipt-header {
-        text-align: center;
-    }
-
-    .receipt-header h2 {
-        margin: 0;
-        font-size: 18px;
-        font-weight: bold;
-    }
-
-    .receipt-header p {
-        font-size: 16px;
-        margin: 5px 0;
-    }
-
-    .receipt-section {
-        margin: 10mm 0;
-    }
-
-    .receipt-section h3 {
-        margin-bottom: 5px;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .receipt-section p {
-        margin: 5px 0;
-    }
-
-    .receipt-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 10px;
-    }
-
-    .receipt-table th, .receipt-table td {
-        padding: 5px;
-        text-align: left;
-        border-bottom: 1px solid #000;
-    }
-
-    .receipt-table th {
-        font-weight: bold;
-        background-color: #000;
-        color: #fff;
-    }
-
-    .receipt-footer {
-        text-align: center;
-        margin-top: 10mm;
-    }
-
-    .receipt-footer p {
-        font-size: 12px;
-        margin: 5px 0;
-    }
-</style>

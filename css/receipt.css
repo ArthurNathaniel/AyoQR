@@ -1,0 +1,56 @@
+.receipt .logo{
+    margin: 0 auto;
+    padding-top: 30px;
+}
+.receipt {
+    width: 90mm;
+    margin: 0 auto;
+    padding: 0 2%;
+    padding-block: 30px;
+    border: 1px dashed #000;
+    font-size: 14px;
+    margin-top: 50px;
+}
+
+.receipt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.receipt-table th, .receipt-table td {
+    padding: 5px;
+    text-align: left;
+    border-bottom: 1px solid #000;
+}
+
+.receipt-table th {
+    font-weight: bold;
+    background-color: #000;
+    color: #fff;
+}
+
+.order_id{
+    text-align: center;
+    margin-top: 20px;
+}
+
+.receipt-item{
+    display: flex;
+    justify-content: space-between;
+}
+
+.title{
+    text-align: center;
+    padding-block: 10px;
+}
+
+.total{
+    margin-top: 15px;
+    text-align: center;
+    font-size: 18px;
+}
+
+.receipt-section p{
+    margin-bottom: 10px;
+}
